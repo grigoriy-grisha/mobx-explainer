@@ -1,9 +1,9 @@
 import {useEffect, useMemo, useState} from 'react'
-import {ObservableValue} from "./package/simple-mobx/ObservableValue";
+import {observableValue} from "./package/simple-mobx";
 import {autorun} from "./package/simple-mobx";
 
  function ObservableValueExample() {
-    const observableHelloWold = useMemo(() => new ObservableValue("hello world"), [])
+    const observableHelloWold = useMemo(() => observableValue("hello world"), [])
     const [value, setValue] = useState(() => observableHelloWold.get())
 
     useEffect(() => {

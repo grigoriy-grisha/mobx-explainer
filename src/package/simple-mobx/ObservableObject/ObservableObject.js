@@ -1,6 +1,6 @@
-import {ObservableValue} from "./ObservableValue";
-import {$$observable} from "./constants";
-import {isObservable} from "./utils";
+import {ObservableValue} from "../ObservableValue";
+import {$$observable} from "../constants";
+import {isObservable} from "../utils";
 
 export class ObservableObject {
   constructor(target) {
