@@ -1,12 +1,11 @@
 import {ObservableObject} from "./ObservableObject";
-
-const $Reactive = Symbol("$Reactive");
+import {$$observableAdmin} from "./constants";
 
 /**
  * @description функция создает прокси и делегирует ему ObservableObject
  */
 export function observable(target) {
-    Object.defineProperty(target, $Reactive, {
+    Object.defineProperty(target, $$observableAdmin, {
         enumerable: false,
         configurable: false,
         writable: false,
@@ -15,10 +14,10 @@ export function observable(target) {
 
     return new Proxy(target, {
         get(...args) {
-            return target[$Reactive].get(...args);
+            return target[$$observableAdmin].get(...args);
         },
         set(...args) {
-            return target[$Reactive].set(...args);
+            return target[$$observableAdmin].set(...args);
         }
     });
 }
