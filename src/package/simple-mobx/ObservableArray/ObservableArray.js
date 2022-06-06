@@ -1,8 +1,15 @@
 import {globalState} from "../globalstate";
 import {isObservable, isPrimitive} from "../utils";
 import {$$observable} from "../constants";
-import {ObservableValue} from "../ObservableValue";
+import {observableValue} from "../ObservableValue";
 
+
+function arrayEnhuncer(items) {
+  return items.map((targetElement) => {
+    if (isPrimitive(targetElement)) return targetElement;
+    return observableValue(targetElement);
+  });
+}
 /**
  * @description класс наблюдаемого значения для массивов
  */
@@ -12,10 +19,7 @@ export class ObservableArray {
     this._observers = new Set([]);
     this[$$observable] = true
 
-    this._values = target.map((targetElement) => {
-      if (isPrimitive(targetElement)) return targetElement;
-      return new ObservableValue(targetElement);
-    });
+    this._values = arrayEnhuncer(target)
   }
 
 
@@ -53,10 +57,7 @@ export class ObservableArray {
    * Метод оборачивает новые элементы в ObservableValue
    */
   spliceWithArray(start, deleteCount, ...items) {
-    const enhuncersItems = items.map((item) => {
-      if (isPrimitive(item)) return item;
-      return new ObservableValue(item);
-    });
+    const enhuncersItems = arrayEnhuncer(items)
 
     const splicesValues = this._values.splice(start, deleteCount || 0, ...enhuncersItems);
     this._target.splice(start, deleteCount || 0, ...items);
