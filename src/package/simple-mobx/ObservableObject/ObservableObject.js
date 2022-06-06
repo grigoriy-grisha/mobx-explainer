@@ -1,6 +1,6 @@
-import {ObservableValue} from "./ObservableValue";
-import {$$observable} from "./constants";
-import {isObservable} from "./utils";
+import {observableValue} from "../ObservableValue";
+import {$$observable} from "../constants";
+import {isObservable} from "../utils";
 
 export class ObservableObject {
   constructor(target) {
@@ -9,7 +9,7 @@ export class ObservableObject {
      * приходящего из вне, только все значения обернуты в ObservableObject
      */
     this._values = Object.fromEntries(
-      Object.entries(target).map(([key, value]) => [key, new ObservableValue(value)])
+      Object.entries(target).map(([key, value]) => [key, observableValue(value)])
     );
 
     this[$$observable] = true

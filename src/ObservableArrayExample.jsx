@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
 import {autorun} from "./package/simple-mobx";
-import {observable} from "./package/simple-mobx/observable";
+import {observableObject} from "./package/simple-mobx";
 
 
 function useForceUpdate() {
@@ -9,7 +9,7 @@ function useForceUpdate() {
 }
 
 function ObservableArrayExample() {
-  const observableArray = useMemo(() => observable({array: [1, 2, 3, 4]}), [])
+  const observableArray = useMemo(() => observableObject({array: [1, 2, 3, 4]}), [])
   const forceUpdate = useForceUpdate()
 
   useEffect(() => {

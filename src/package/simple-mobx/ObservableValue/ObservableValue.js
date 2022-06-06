@@ -1,8 +1,9 @@
-import {observableArray} from "./ObservableArray";
-import {observable} from "./observable";
-import {globalState} from "./globalstate";
-import {$$observable} from "./constants";
-import {isArray, isObservable, isPrimitive, isPureObject} from "./utils";
+import {observableArray} from "../ObservableArray";
+import {observableObject} from "../ObservableObject";
+
+import {globalState} from "../globalstate";
+import {$$observable} from "../constants";
+import {isArray, isObservable, isPrimitive, isPureObject} from "../utils";
 
 /**
  * @description оборачивает значения в observable контейнера
@@ -10,7 +11,7 @@ import {isArray, isObservable, isPrimitive, isPureObject} from "./utils";
 function enhuncer(value) {
   if (isObservable(value)) return value;
   if (isPrimitive(value)) return value;
-  if (isPureObject(value)) return observable(value);
+  if (isPureObject(value)) return observableObject(value);
   if (isArray(value)) return observableArray(value);
   return value;
 }
