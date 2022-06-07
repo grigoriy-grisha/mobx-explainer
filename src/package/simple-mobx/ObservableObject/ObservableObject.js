@@ -29,7 +29,6 @@ export class ObservableObject {
     return this._values[property];
   }
 
-
   /**
    * @description  Метод-делегат, который устанавливает
    * значения для ObservableValue и для внешнего объекта

@@ -1,6 +1,5 @@
-import {useCallback, useEffect, useMemo, useState} from 'react'
-import {autorun} from "./package/simple-mobx";
-import {observableObject} from "./package/simple-mobx";
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import {autorun, observableObject} from "./package/simple-mobx";
 
 
 function useForceUpdate() {
@@ -11,9 +10,10 @@ function useForceUpdate() {
 function ObservableArrayExample() {
   const observableArray = useMemo(() => observableObject({array: [1, 2, 3, 4]}), [])
   const forceUpdate = useForceUpdate()
+  const disposerRef = useRef()
 
   useEffect(() => {
-    autorun(() => {
+    disposerRef.current = autorun(() => {
       /**
        * мы тут должны обратиться ко всем элементами, чтобы привязать массив к autorun
        */
@@ -30,6 +30,12 @@ function ObservableArrayExample() {
     <div>
       {observableArray.array.map((item, index) => (<div key={index}>{item} </div>))}
       <div onClick={addElement}>addElement</div>
+      <div onClick={() => {
+
+        disposerRef.current && disposerRef.current()
+        console.log(observableArray.array)
+      }}>dispose
+      </div>
     </div>
   )
 }

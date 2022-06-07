@@ -1,19 +1,20 @@
-import {useEffect, useMemo, useState} from 'react'
-import {observableValue} from "./package/simple-mobx";
-import {autorun} from "./package/simple-mobx";
+import {useEffect, useMemo, useRef, useState} from 'react'
+import {autorun, observableValue} from "./package/simple-mobx";
 
- function ObservableValueExample() {
-    const observableHelloWold = useMemo(() => observableValue("hello world"), [])
-    const [value, setValue] = useState(() => observableHelloWold.get())
+function ObservableValueExample() {
+  const observableHelloWold = useMemo(() => observableValue("hello world"), [])
+  const [value, setValue] = useState(() => observableHelloWold.get())
+  const disposerRef = useRef()
 
-    useEffect(() => {
-        autorun(() => setValue(observableHelloWold.get()))
-    }, [])
+  useEffect(() => {
+    disposerRef.current = autorun(() => setValue(observableHelloWold.get()))
+  }, [])
 
-    return <div>
-        <input type="text" value={value} onChange={event => observableHelloWold.set(event.target.value)}/>
-        <div>{value}</div>
-    </div>
+  return <div>
+    <input type="text" value={value} onChange={event => observableHelloWold.set(event.target.value)}/>
+    <div>{value}</div>
+    <div onClick={disposerRef.current}>dispose</div>
+  </div>
 }
 
 export default ObservableValueExample

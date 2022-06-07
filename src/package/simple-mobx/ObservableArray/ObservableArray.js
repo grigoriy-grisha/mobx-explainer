@@ -2,6 +2,7 @@ import {globalState} from "../globalstate";
 import {isObservable, isPrimitive} from "../utils";
 import {$$observable} from "../constants";
 import {observableValue} from "../ObservableValue";
+import {Atom} from "../Atom";
 
 
 function arrayEnhuncer(items) {
@@ -13,21 +14,21 @@ function arrayEnhuncer(items) {
 /**
  * @description класс наблюдаемого значения для массивов
  */
-export class ObservableArray {
+export class ObservableArray extends Atom{
   constructor(target) {
+    super()
+
     this._target = target
-    this._observers = new Set([]);
     this[$$observable] = true
 
     this._values = arrayEnhuncer(target)
   }
 
-
   /**
    * @description Отдает значение и, если есть глобальный слушатель, то регистрирует его
    */
   get(target, property) {
-    const executableCallback = globalState.globalAutorunFn;
+    const executableCallback = globalState.trackingContext;
     if (executableCallback) this.observe(executableCallback);
 
     const observableValue = this._getValue(property);
@@ -63,15 +64,8 @@ export class ObservableArray {
     this._target.splice(start, deleteCount || 0, ...items);
 
 
-    this._notifyObservers();
+    this._notify();
     return splicesValues;
-  }
-
-  /**
-   * @description Уведомление слушателей об изменениях
-   */
-  _notifyObservers() {
-    this._observers.forEach((observer) => observer());
   }
 
   /**
@@ -81,23 +75,9 @@ export class ObservableArray {
     const isValuesSetSuccess = Reflect.set(this._values, "length", newLength);
     const isTargetSetSuccess = Reflect.set(this._target, "length", newLength);
 
-    this._notifyObservers();
+    this._notify();
 
     return isValuesSetSuccess && isTargetSetSuccess;
-  }
-
-  /**
-   * @description Добавление слушателя в Set слушателей
-   */
-  observe(observer) {
-    this._observers.add(observer)
-  }
-
-  /**
-   * @description Удаление слушателя из Set-a слушателей
-   */
-  unobserve(observer) {
-    this._observers.delete(observer)
   }
 
   getValues() {
