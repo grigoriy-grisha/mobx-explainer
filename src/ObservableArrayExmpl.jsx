@@ -1,4 +1,3 @@
-import {useMemo} from "react";
 import {observer} from "./package/simple-mobx-react";
 import {globalExmpleState} from "./globalExmpleState";
 

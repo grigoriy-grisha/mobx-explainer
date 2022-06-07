@@ -1,20 +1,17 @@
-import {useEffect, useMemo, useRef, useState} from 'react'
-import {autorun, observableObject} from "./package/simple-mobx";
+import {useMemo} from 'react'
+import {observableObject} from "./package/simple-mobx";
+import {observer} from "./package/simple-mobx-react";
 
 function ObservableObjectExample() {
-  const observableHelloWold = useMemo(() => observableObject({hello: 'hello'}), [])
-  const [value, setValue] = useState(() => observableHelloWold.hello)
-  const disposerRef = useRef()
+    const observableHelloWold = useMemo(() => observableObject({hello: 'hello'}), [])
 
-  useEffect(() => {
-    disposerRef.current = autorun(() => setValue(observableHelloWold.hello))
-  }, [])
-
-  return <div>
-    <input type="text" value={value} onChange={event => observableHelloWold.hello = event.target.value}/>
-    <div>{value}</div>
-    <div onClick={disposerRef.current}>dispose</div>
-  </div>
+    return (
+        <div>
+            <input type="text" value={observableHelloWold.hello}
+                   onChange={event => observableHelloWold.hello = event.target.value}/>
+            <div>{observableHelloWold.hello}</div>
+        </div>
+    )
 }
 
-export default ObservableObjectExample
+export default observer(ObservableObjectExample)
