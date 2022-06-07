@@ -5,7 +5,7 @@ import {Reaction} from "./Reaction";
  */
 export function autorun(callback) {
     const reaction =  new Reaction(callback)
-    reaction.track()
+    reaction.track(callback)
 
     return reaction.getDispose()
 }
