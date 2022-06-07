@@ -1,4 +1,7 @@
 
+/**
+ *  Класс реализующий подписики и уведомление для наблюдаеых значений
+ */
 export class Atom {
   constructor() {
     this._observers = new Set([]);

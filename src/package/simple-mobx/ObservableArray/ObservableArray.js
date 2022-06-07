@@ -5,7 +5,7 @@ import {observableValue} from "../ObservableValue";
 import {Atom} from "../Atom";
 
 
-function arrayEnhuncer(items) {
+function arrayEnhancer(items) {
   return items.map((targetElement) => {
     if (isPrimitive(targetElement)) return targetElement;
     return observableValue(targetElement);
@@ -21,7 +21,7 @@ export class ObservableArray extends Atom{
     this._target = target
     this[$$observable] = true
 
-    this._values = arrayEnhuncer(target)
+    this._values = arrayEnhancer(target)
   }
 
   /**
@@ -58,7 +58,7 @@ export class ObservableArray extends Atom{
    * Метод оборачивает новые элементы в ObservableValue
    */
   spliceWithArray(start, deleteCount, ...items) {
-    const enhuncersItems = arrayEnhuncer(items)
+    const enhuncersItems = arrayEnhancer(items)
 
     const splicesValues = this._values.splice(start, deleteCount || 0, ...enhuncersItems);
     this._target.splice(start, deleteCount || 0, ...items);

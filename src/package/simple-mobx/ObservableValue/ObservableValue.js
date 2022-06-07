@@ -9,7 +9,7 @@ import {Atom} from "../Atom";
 /**
  * @description оборачивает значения в observable контейнера
  */
-function enhuncer(value) {
+function enhancer(value) {
   if (isObservable(value)) return value;
   if (isPrimitive(value)) return value;
   if (isPureObject(value)) return observableObject(value);
@@ -26,7 +26,7 @@ export class ObservableValue extends Atom {
 
     this[$$observable] = true
 
-    this._value = enhuncer(value)
+    this._value = enhancer(value)
 
   }
 

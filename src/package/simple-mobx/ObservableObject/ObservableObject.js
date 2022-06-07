@@ -6,7 +6,7 @@ export class ObservableObject {
   constructor(target) {
     /**
      * создаем объект значений, это копия объекта,
-     * приходящего из вне, только все значения обернуты в ObservableObject
+     * приходящего из вне, только все значения обернуты в ObservableValue
      */
     this._values = Object.fromEntries(
       Object.entries(target).map(([key, value]) => [key, observableValue(value)])
