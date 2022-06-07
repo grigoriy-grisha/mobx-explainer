@@ -1,5 +1,11 @@
+/**
+ * Класс глобального состояния
+ */
 class GlobalState {
-    globalAutorunFn = null
+    /**
+     * Переменная для записи реакции
+     */
+    trackingContext = null
 }
 
 export const globalState = new GlobalState()
