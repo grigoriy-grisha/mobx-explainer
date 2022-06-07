@@ -29,11 +29,12 @@ export class Reaction {
   /**
    *  @description Запуск коллбека с записью текущего контекста в глобальную перменную
    *  Чтобы наблюдаемые значения могли перехватить реакцию и сохранить себе в слушатели
+   *  @param trackedCallback коллбэк, вызываюийся для привзяки реакции к наблюдаемым значениям
    */
-  track() {
+  track(trackedCallback) {
     if (this._disposed) return
     globalState.trackingContext = this;
-    this.run();
+    trackedCallback();
     globalState.trackingContext = null;
   }
 

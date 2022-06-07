@@ -1,17 +1,24 @@
-import './App.css';
-
 import ObservableValueExample from './ObservableValueExample'
 import ObservableObjectExample from "./ObservableObjectExample";
-import ObservableArrayExample from "./ObservableArrayExample";
+import {useState} from "react";
+import ObservableArrayExmpl from "./ObservableArrayExmpl";
+import {globalExmpleState} from "./globalExmpleState";
 
 function App() {
-  return (
-    <div className="App">
-      <ObservableValueExample/>
-      <ObservableObjectExample/>
-      <ObservableArrayExample />
-    </div>
-  );
+    const [state, setState] = useState(true)
+
+    // Для проверки отписок
+    console.log(globalExmpleState)
+    return (
+        <div className="App">
+            <ObservableValueExample/>
+            <ObservableObjectExample/>
+            {state && <ObservableArrayExmpl/>}
+            <div onClick={() => setState(prevState => !prevState)}>
+                toggle
+            </div>
+        </div>
+    );
 }
 
 export default App;
