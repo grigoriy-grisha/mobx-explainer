@@ -23,7 +23,7 @@ export class Reaction {
    * @description  Удаление наблюдаемого значения
    */
   removeObserver(observer) {
-    this._observers.add(observer);
+    this._observers.delete(observer);
   }
 
   /**
