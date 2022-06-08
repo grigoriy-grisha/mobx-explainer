@@ -58,10 +58,8 @@ export class ObservableArray extends Atom{
    * Метод оборачивает новые элементы в ObservableValue
    */
   spliceWithArray(start, deleteCount, ...items) {
-    const enhuncersItems = arrayEnhancer(items)
-
-    const splicesValues = this._values.splice(start, deleteCount || 0, ...enhuncersItems);
-    this._target.splice(start, deleteCount || 0, ...items);
+    this._values.splice(start, deleteCount || 0, ...arrayEnhancer(items));
+    const splicesValues = this._target.splice(start, deleteCount || 0, ...items);
 
 
     this._notify();
