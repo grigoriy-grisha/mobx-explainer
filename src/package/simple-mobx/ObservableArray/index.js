@@ -1,6 +1,6 @@
-import {ObservableArray} from "./ObservableArray";
-import {ArrayHandlers} from "./arrayHandlers";
-import {$$observableAdmin} from "../constants";
+import { ObservableArray } from "./ObservableArray";
+import { ArrayHandlers } from "./arrayHandlers";
+import { $$observableAdmin } from "../constants";
 
 function delegateProxy(target) {
   return new Proxy(target, new ArrayHandlers());

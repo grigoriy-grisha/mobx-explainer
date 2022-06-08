@@ -1,10 +1,10 @@
-import {observableArray} from "../ObservableArray";
-import {observableObject} from "../ObservableObject";
+import { observableArray } from "../ObservableArray";
+import { observableObject } from "../ObservableObject";
 
-import {globalState} from "../globalstate";
-import {$$observable} from "../constants";
-import {isArray, isObservable, isPrimitive, isPureObject} from "../utils";
-import {Atom} from "../Atom";
+import { globalState } from "../globalstate";
+import { $$observable } from "../constants";
+import { isArray, isObservable, isPrimitive, isPureObject } from "../utils";
+import { Atom } from "../Atom";
 
 /**
  * @description оборачивает значения в observable контейнера
@@ -22,12 +22,11 @@ function enhancer(value) {
  */
 export class ObservableValue extends Atom {
   constructor(value) {
-    super()
+    super();
 
-    this[$$observable] = true
+    this[$$observable] = true;
 
-    this._value = enhancer(value)
-
+    this._value = enhancer(value);
   }
 
   /**
@@ -49,4 +48,3 @@ export class ObservableValue extends Atom {
     this._notify();
   }
 }
-

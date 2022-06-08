@@ -1,4 +1,4 @@
-import {globalState} from "../globalstate";
+import { globalState } from "../globalstate";
 
 /**
  * @description Сущность реакции, содержащаяя коллбек, который привязан к наблюдаемым значенмиям.
@@ -7,23 +7,23 @@ import {globalState} from "../globalstate";
  */
 export class Reaction {
   constructor(callback) {
-    this._callback = callback
-    this._observers = new Set([])
-    this._disposed = false
+    this._callback = callback;
+    this._observers = new Set([]);
+    this._disposed = false;
   }
 
   /**
    * @description  Добавление наблюдаемого значения
    */
   addObserver(observer) {
-    this._observers.add(observer)
+    this._observers.add(observer);
   }
 
   /**
    * @description  Удаление наблюдаемого значения
    */
   removeObserver(observer) {
-    this._observers.add(observer)
+    this._observers.add(observer);
   }
 
   /**
@@ -32,7 +32,7 @@ export class Reaction {
    *  @param trackedCallback коллбэк, вызываюийся для привзяки реакции к наблюдаемым значениям
    */
   track(trackedCallback) {
-    if (this._disposed) return
+    if (this._disposed) return;
     globalState.trackingContext = this;
     trackedCallback();
     globalState.trackingContext = null;
@@ -42,7 +42,7 @@ export class Reaction {
    * @description  Запуск переданного коллбека
    */
   run() {
-    return this._callback()
+    return this._callback();
   }
 
   /**
@@ -50,21 +50,21 @@ export class Reaction {
    *  вызывает метод для взаимных отписок
    */
   dispose() {
-    this._disposed = true
-    this._clearObservers()
+    this._disposed = true;
+    this._clearObservers();
   }
 
   /**
    * @description  Получение метода dispose, с привязкой контекста
    */
   getDispose() {
-    return this.dispose.bind(this)
+    return this.dispose.bind(this);
   }
 
   /**
    * @description  Вызов взаимной отписки наблюдаемых значений
    */
   _clearObservers() {
-    this._observers.forEach(observer => observer.dispose(this))
+    this._observers.forEach((observer) => observer.dispose(this));
   }
 }

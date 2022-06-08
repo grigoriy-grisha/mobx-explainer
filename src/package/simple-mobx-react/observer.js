@@ -1,23 +1,23 @@
-import {useLayoutEffect, useRef} from "react";
-import {Reaction} from "../simple-mobx";
-import {useForceUpdate} from "./useForceUpdate";
+import { useLayoutEffect, useRef } from "react";
+import { Reaction } from "../simple-mobx";
+import { useForceUpdate } from "./useForceUpdate";
 
 export function observer(Component) {
   return (props) => {
-    const reactionTrackingRef = useRef(null)
-    const forceUpdate = useForceUpdate()
+    const reactionTrackingRef = useRef(null);
+    const forceUpdate = useForceUpdate();
 
     if (!reactionTrackingRef.current) {
-      reactionTrackingRef.current = new Reaction(forceUpdate)
+      reactionTrackingRef.current = new Reaction(forceUpdate);
     }
 
-    useLayoutEffect(() => () => reactionTrackingRef.current.dispose(), [])
+    useLayoutEffect(() => () => reactionTrackingRef.current.dispose(), []);
 
-    let rendering
+    let rendering;
     reactionTrackingRef.current.track(() => {
-        rendering = Component(props)
-    })
+      rendering = Component(props);
+    });
 
-    return rendering
-  }
+    return rendering;
+  };
 }

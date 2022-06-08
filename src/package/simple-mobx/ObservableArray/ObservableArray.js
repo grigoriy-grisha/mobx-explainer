@@ -1,9 +1,8 @@
-import {globalState} from "../globalstate";
-import {isObservable, isPrimitive} from "../utils";
-import {$$observable} from "../constants";
-import {observableValue} from "../ObservableValue";
-import {Atom} from "../Atom";
-
+import { globalState } from "../globalstate";
+import { isObservable, isPrimitive } from "../utils";
+import { $$observable } from "../constants";
+import { observableValue } from "../ObservableValue";
+import { Atom } from "../Atom";
 
 function arrayEnhancer(items) {
   return items.map((targetElement) => {
@@ -11,17 +10,18 @@ function arrayEnhancer(items) {
     return observableValue(targetElement);
   });
 }
+
 /**
  * @description класс наблюдаемого значения для массивов
  */
-export class ObservableArray extends Atom{
+export class ObservableArray extends Atom {
   constructor(target) {
-    super()
+    super();
 
-    this._target = target
-    this[$$observable] = true
+    this._target = target;
+    this[$$observable] = true;
 
-    this._values = arrayEnhancer(target)
+    this._values = arrayEnhancer(target);
   }
 
   /**
@@ -33,7 +33,7 @@ export class ObservableArray extends Atom{
 
     const observableValue = this._getValue(property);
     if (isObservable(observableValue)) return observableValue.get();
-    return observableValue
+    return observableValue;
   }
 
   /**
@@ -61,7 +61,6 @@ export class ObservableArray extends Atom{
     this._values.splice(start, deleteCount || 0, ...arrayEnhancer(items));
     const splicesValues = this._target.splice(start, deleteCount || 0, ...items);
 
-
     this._notify();
     return splicesValues;
   }
@@ -82,5 +81,3 @@ export class ObservableArray extends Atom{
     return this._values;
   }
 }
-
-

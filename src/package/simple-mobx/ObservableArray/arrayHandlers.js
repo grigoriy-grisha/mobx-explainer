@@ -1,4 +1,4 @@
-import {$$observableAdmin} from "../constants";
+import { $$observableAdmin } from "../constants";
 
 /**
  * Имплементация методов массива
@@ -8,7 +8,7 @@ import {$$observableAdmin} from "../constants";
  */
 const arrayMethods = {
   push(...items) {
-    const internalReactiveInstance = (this)[$$observableAdmin];
+    const internalReactiveInstance = this[$$observableAdmin];
     internalReactiveInstance.spliceWithArray(internalReactiveInstance.getValues().length, 0, ...items);
     return internalReactiveInstance.getValues().length;
   },
@@ -25,7 +25,7 @@ export class ArrayHandlers {
   set(target, property, value) {
     const reactiveField = target[$$observableAdmin];
 
-    if (property === 'length') return reactiveField.setLength(value);
+    if (property === "length") return reactiveField.setLength(value);
     return reactiveField.set(target, property, value);
   }
 }
