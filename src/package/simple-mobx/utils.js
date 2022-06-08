@@ -1,8 +1,8 @@
-import {$$observable} from "./constants";
+import { $$observable } from "./constants";
 
 export function isObservable(arg) {
-  if (!!arg) return !!arg[$$observable]
-  return false
+  if (!!arg) return !!arg[$$observable];
+  return false;
 }
 
 export function is(Ctor, val) {

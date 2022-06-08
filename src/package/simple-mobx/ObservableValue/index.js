@@ -1,5 +1,5 @@
-import {ObservableValue} from "./ObservableValue";
+import { ObservableValue } from "./ObservableValue";
 
 export function observableValue(value) {
-  return new ObservableValue(value)
+  return new ObservableValue(value);
 }

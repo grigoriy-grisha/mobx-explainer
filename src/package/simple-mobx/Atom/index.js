@@ -1,4 +1,3 @@
-
 /**
  *  Класс реализующий подписики и уведомление для наблюдаеых значений
  */
@@ -13,7 +12,7 @@ export class Atom {
    */
   observe(reaction) {
     this._observers.add(reaction);
-    reaction.addObserver(this)
+    reaction.addObserver(this);
   }
 
   /**
@@ -21,8 +20,8 @@ export class Atom {
    * Удаляет наблюдаемое значение из зависимостей реакции
    */
   dispose(reaction) {
-    this._observers.delete(reaction)
-    reaction.removeObserver(this)
+    this._observers.delete(reaction);
+    reaction.removeObserver(this);
   }
 
   /**
