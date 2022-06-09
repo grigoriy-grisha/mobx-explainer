@@ -28,8 +28,7 @@ export class ObservableArray extends Atom {
    * @description Отдает значение и, если есть глобальный слушатель, то регистрирует его
    */
   get(target, property) {
-    const executableCallback = globalState.trackingContext;
-    if (executableCallback) this.observe(executableCallback);
+    this._reportObserved();
 
     const observableValue = this._getValue(property);
     if (isObservable(observableValue)) return observableValue.get();

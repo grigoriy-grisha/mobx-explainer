@@ -33,9 +33,7 @@ export class ObservableValue extends Atom {
    * @description Отдает значение и, если есть глобальный слушатель, то регистрирует его
    */
   get() {
-    if (globalState.trackingContext) {
-      this.observe(globalState.trackingContext);
-    }
+    this._reportObserved();
 
     return this._value;
   }
