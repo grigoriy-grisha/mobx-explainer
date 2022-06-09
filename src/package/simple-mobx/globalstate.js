@@ -5,7 +5,7 @@ class GlobalState {
   /**
    * Переменная для записи реакции
    */
-  trackingContext = null;
+  trackingDerivation = null;
 }
 
 export const globalState = new GlobalState();

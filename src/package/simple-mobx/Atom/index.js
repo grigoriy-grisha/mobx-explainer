@@ -1,3 +1,5 @@
+import { globalState } from "../globalstate";
+
 /**
  *  Класс реализующий подписики и уведомление для наблюдаеых значений
  */
@@ -22,6 +24,10 @@ export class Atom {
   dispose(reaction) {
     this._observers.delete(reaction);
     reaction.removeObserver(this);
+  }
+
+  _reportObserved() {
+    if (globalState.trackingDerivation) this.observe(globalState.trackingDerivation);
   }
 
   /**
