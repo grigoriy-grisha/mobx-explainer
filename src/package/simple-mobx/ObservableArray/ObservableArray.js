@@ -1,4 +1,3 @@
-import { globalState } from "../globalstate";
 import { isObservable, isPrimitive } from "../utils";
 import { $$observable } from "../constants";
 import { observableValue } from "../ObservableValue";
