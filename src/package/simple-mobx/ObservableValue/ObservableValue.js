@@ -1,7 +1,6 @@
 import { observableArray } from "../ObservableArray";
 import { observableObject } from "../ObservableObject";
 
-import { globalState } from "../globalstate";
 import { $$observable } from "../constants";
 import { isArray, isObservable, isPrimitive, isPureObject } from "../utils";
 import { Atom } from "../Atom";
@@ -42,7 +41,7 @@ export class ObservableValue extends Atom {
    * @description Устанавливает новое значение и уведомляет слушателей
    */
   set(newValue) {
-    this._value = newValue;
+    this._value = enhancer(newValue);
     this._notify();
   }
 }

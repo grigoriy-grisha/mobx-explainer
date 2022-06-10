@@ -1,6 +1,6 @@
 import { observableValue } from "../ObservableValue";
 import { $$observable } from "../constants";
-import { isFunction } from "../utils";
+import { isFunction, isObservable } from "../utils";
 
 export class ObservableObject {
   constructor(target) {
@@ -24,7 +24,11 @@ export class ObservableObject {
 
     if (isFunction(target[property])) return target[property];
 
-    return this._values[property].get();
+    if (isObservable(this._values[property])) {
+      return this._values[property].get();
+    }
+
+    return this._values[property];
   }
 
   /**
@@ -33,7 +37,13 @@ export class ObservableObject {
    */
   set(target, property, value) {
     if (this._hasProperty(property)) {
-      this._values[property].set(value);
+      if (isObservable(this._values[property])) {
+        this._values[property].set(value);
+        return true;
+      }
+
+      this._values[property] = value;
+
       return true;
     }
 
