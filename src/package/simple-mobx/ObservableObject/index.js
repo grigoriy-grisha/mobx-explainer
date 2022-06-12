@@ -5,6 +5,8 @@ import { $$observableAdmin } from "../constants";
  * @description функция создает прокси и делегирует ему ObservableObject
  */
 export function observableObject(target) {
+  if (target.hasOwnProperty($$observableAdmin)) return target;
+
   Object.defineProperty(target, $$observableAdmin, {
     enumerable: false,
     configurable: false,

@@ -33,15 +33,16 @@ export class Reaction {
    */
   track(trackedCallback) {
     if (this._disposed) return;
-    globalState.trackingContext = this;
+    globalState.trackingDerivation = this;
     trackedCallback();
-    globalState.trackingContext = null;
+    globalState.trackingDerivation = null;
   }
 
   /**
    * @description  Запуск переданного коллбека
    */
   run() {
+    if (this._disposed) return;
     return this._callback();
   }
 

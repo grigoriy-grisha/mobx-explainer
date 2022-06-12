@@ -1,13 +1,10 @@
-import { isObservable, isPrimitive } from "../utils";
+import { isObservable } from "../utils";
 import { $$observable } from "../constants";
 import { observableValue } from "../ObservableValue";
 import { Atom } from "../Atom";
 
 function arrayEnhancer(items) {
-  return items.map((targetElement) => {
-    if (isPrimitive(targetElement)) return targetElement;
-    return observableValue(targetElement);
-  });
+  return items.map(observableValue);
 }
 
 /**
@@ -69,8 +66,6 @@ export class ObservableArray extends Atom {
   setLength(newLength) {
     const isValuesSetSuccess = Reflect.set(this._values, "length", newLength);
     const isTargetSetSuccess = Reflect.set(this._target, "length", newLength);
-
-    this._notify();
 
     return isValuesSetSuccess && isTargetSetSuccess;
   }

@@ -13,6 +13,7 @@ function enhancer(value) {
   if (isPrimitive(value)) return value;
   if (isPureObject(value)) return observableObject(value);
   if (isArray(value)) return observableArray(value);
+
   return value;
 }
 
@@ -42,6 +43,7 @@ export class ObservableValue extends Atom {
    */
   set(newValue) {
     this._value = enhancer(newValue);
+
     this._notify();
   }
 }

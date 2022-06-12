@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { observableValue } from "../package/simple-mobx";
 import { observer } from "../package/simple-mobx-react";
+import { makeObservable } from "../package/simple-mobx/makeObservable";
 
 function ObservableValueExample() {
-  const observableHelloWold = useMemo(() => observableValue("hello world"), []);
+  const observableHelloWold = useMemo(() => makeObservable("hello world"), []);
 
   return (
     <div>

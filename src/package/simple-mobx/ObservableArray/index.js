@@ -7,6 +7,8 @@ function delegateProxy(target) {
 }
 
 export function observableArray(target) {
+  if (target.hasOwnProperty($$observableAdmin)) return target;
+
   Object.defineProperty(target, $$observableAdmin, {
     enumerable: false,
     configurable: false,
