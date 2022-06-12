@@ -1,8 +1,8 @@
-import { observableArray } from "./package/simple-mobx";
+import { makeObservable } from "./package/simple-mobx/makeObservable";
 
 class GlobalExmpleState {
   constructor() {
-    this.array = observableArray([1, 2, 3, 4]);
+    this.array = makeObservable([1, 2, 3, 4]);
   }
 }
 

@@ -1,14 +1,14 @@
 import { useMemo } from "react";
 
-import { observableObject, observableValue } from "../package/simple-mobx";
-import { observer } from "../package/simple-mobx-react";
+import { makeObservable } from "../../package/simple-mobx/makeObservable";
+import { observer } from "../../package/simple-mobx-react";
 
 import { TodoAppModel } from "./model/todoAppMode";
 import TodoItem from "./TodoItem";
 
 function TodoApp() {
-  const todoAppModel = useMemo(() => observableObject(new TodoAppModel()), []);
-  const value = useMemo(() => observableValue(""), []);
+  const todoAppModel = useMemo(() => makeObservable(new TodoAppModel()), []);
+  const value = useMemo(() => makeObservable(""), []);
 
   return (
     <div style={{ padding: 20 }}>
