@@ -1,20 +1,19 @@
-import { $$observableAdmin } from "../constants";
-
-const { observableValue } = require("../ObservableValue");
+import { observableValue } from "../ObservableValue";
+import { hasAdminSymbol } from "./utils";
 
 describe("observableValue", () => {
   it("should be defined", function () {
     expect(observableValue).toBeDefined();
   });
 
-  it("get() should return provided value", function () {
+  it("get() must return provided value", function () {
     const providedValue = "hello world";
     const value = observableValue(providedValue);
 
     expect(value.get()).toBe(providedValue);
   });
 
-  it("set() should change value", function () {
+  it("set() must change value", function () {
     const providedValue = "hello world";
     const newValue = "hello world";
     const value = observableValue(providedValue);
@@ -23,18 +22,18 @@ describe("observableValue", () => {
     expect(value.get()).toBe(newValue);
   });
 
-  it("array and object value should has symbol key", function () {
+  it("array and object value must has 'admin' symbol key", function () {
     const providedValue = { hello: "hello" };
     const value = observableValue(providedValue);
 
-    expect(Object.getOwnPropertySymbols(value.get())[0]).toBe($$observableAdmin);
+    expect(hasAdminSymbol(value.get())).toBe(true);
 
     value.set([1, 2, 3, 4]);
 
-    expect(Object.getOwnPropertySymbols(value.get())[0]).toBe($$observableAdmin);
+    expect(hasAdminSymbol(value.get())).toBe(true);
 
     value.set(42);
 
-    expect(Object.getOwnPropertySymbols(value.get())[0]).not.toBe($$observableAdmin);
+    expect(hasAdminSymbol(value.get())).toBe(false);
   });
 });
