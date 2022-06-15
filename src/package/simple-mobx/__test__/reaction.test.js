@@ -91,4 +91,35 @@ describe("reaction", () => {
     expect(reaction._observers.has(mockObservable)).toBe(false);
     expect(mockObservable._observers.has(reaction)).toBe(false);
   });
+
+  it("reaction must be executed before set observableValue", function () {
+    const mockObservable = new MockObservable();
+    const listener = jest.fn(() => mockObservable.get());
+
+    const reaction = new Reaction(listener);
+
+    reaction.track(listener);
+
+    mockObservable.set()
+
+    expect(listener).toBeCalledTimes(2)
+  });
+
+  it("reaction must not be executed before dispose", function () {
+    const mockObservable = new MockObservable();
+    const listener = jest.fn(() => mockObservable.get());
+    const reaction = new Reaction(listener);
+
+    reaction.track(listener);
+
+    mockObservable.set()
+
+    expect(listener).toBeCalledTimes(2)
+
+    reaction.dispose()
+
+    mockObservable.set()
+
+    expect(listener).toBeCalledTimes(2)
+  });
 });
