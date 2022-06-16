@@ -1,5 +1,6 @@
 import { observableObject } from "../ObservableObject";
 import { autorun } from "../autorun";
+import { expectListenerWasUpdated } from "./utils";
 
 describe("observableObject autorun", () => {
   it("observableObject must be defined", function () {
@@ -18,7 +19,7 @@ describe("observableObject autorun", () => {
 
     value.hello = "new hello";
 
-    expect(listener).toBeCalledTimes(2);
+    expectListenerWasUpdated(listener);
   });
 
   it("listener must not be called before dispose autorun", function () {
@@ -29,7 +30,7 @@ describe("observableObject autorun", () => {
 
     value.hello = "new hello";
 
-    expect(listener).toBeCalledTimes(2);
+    const expectListenerIsNoWastUpdated = expectListenerWasUpdated(listener);
 
     dispose();
 
@@ -37,6 +38,6 @@ describe("observableObject autorun", () => {
     value.hello = "new hello 2";
     value.hello = "new hello 3";
 
-    expect(listener).toBeCalledTimes(2);
+    expectListenerIsNoWastUpdated();
   });
 });
