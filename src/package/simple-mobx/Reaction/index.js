@@ -4,6 +4,9 @@ import { globalState } from "../globalstate";
  * @description Сущность реакции, содержащаяя коллбек, который привязан к наблюдаемым значенмиям.
  * Реакция содержит список наблюдаемых значений, от котрых зависит.
  * Это нужно для взаимной отписки при вызове метода dispose
+ *
+ * В исходниках находится тут https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/core/reaction.ts#L53
+ *
  */
 export class Reaction {
   constructor(callback) {

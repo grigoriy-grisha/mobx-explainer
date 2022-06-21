@@ -9,6 +9,8 @@ function arrayEnhancer(items) {
 
 /**
  * @description класс наблюдаемого значения для массивов
+ * Аналогичная сущность из исходников Mobx https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observablearray.ts#L119
+ *
  */
 export class ObservableArray extends Atom {
   constructor(target) {
@@ -51,6 +53,11 @@ export class ObservableArray extends Atom {
    * с помощью метода splice, можно эмулировать почти любой метод вставки и удаления.
    *
    * Метод оборачивает новые элементы в ObservableValue
+   *
+   * Этот метод выглядит очень сложным https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observablearray.ts#L213
+   * там производится много вещей, но смысл примерно тот же:
+   * обернть значения в observable и добавит значения в массив
+   * и затем происходит увеомление слушателей https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observablearray.ts#L261
    */
   spliceWithArray(start, deleteCount, ...items) {
     this._values.splice(start, deleteCount || 0, ...arrayEnhancer(items));
