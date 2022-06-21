@@ -2,6 +2,7 @@ import { globalState } from "../globalstate";
 
 /**
  *  Класс реализующий подписики и уведомление для наблюдаеых значений
+ *  Аналогичная сущность в mobx https://github.com/mobxjs/mobx/blob/main/packages/mobx/src/core/atom.ts#L24
  */
 export class Atom {
   constructor() {
@@ -26,12 +27,18 @@ export class Atom {
     reaction.removeObserver(this);
   }
 
+  /**
+   * @description метод перехватвает текущую реакцию из глобальной переменной и регестрирует ее себе
+   * Аналогичный метод https://github.com/mobxjs/mobx/blob/main/packages/mobx/src/core/atom.ts#L59
+   * @protected
+   */
   _reportObserved() {
     if (globalState.trackingDerivation) this.observe(globalState.trackingDerivation);
   }
 
   /**
    * @description Уведомляет слушателей об изменениях
+   * @protected
    */
   _notify() {
     this._observers.forEach((reaction) => reaction.run());

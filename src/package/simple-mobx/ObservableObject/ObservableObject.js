@@ -2,6 +2,11 @@ import { observableValue } from "../ObservableValue";
 import { $$observable } from "../constants";
 import { isFunction, isObservable } from "../utils";
 
+/**
+ * @description observable значение, предаставляющее наблюдаемый объект
+ * в mobx содержиться тут https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observableobject.ts#L90
+ * у нас много метдов не реализовано, такие как has, delete,ownKeys и др
+ */
 export class ObservableObject {
   constructor(target) {
     this._target = target;

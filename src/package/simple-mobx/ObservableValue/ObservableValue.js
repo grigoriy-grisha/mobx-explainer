@@ -19,6 +19,8 @@ function enhancer(value) {
 
 /**
  * @description класс наблюдаемого значения Содержит слушатели и само значение
+ * в исходника находится тут https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observablevalue.ts#L62
+ * У нас не реализованы приведения в примитивные типы
  */
 export class ObservableValue extends Atom {
   constructor(value) {
