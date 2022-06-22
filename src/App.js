@@ -1,10 +1,11 @@
 import "./App.css";
 import TodoApp from "./exmples/TodoApp";
+import Counter from "./exmples/Counter";
 
 function App() {
   return (
     <div className="App">
-      <TodoApp />
+      <Counter />
     </div>
   );
 }
