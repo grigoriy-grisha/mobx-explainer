@@ -11,6 +11,7 @@ export class TodoAppModel {
   }
 
   addTodo(title) {
+    if (title === "") return;
     this.todos.push({ title, id: getNextId(), complete: false });
   }
 
