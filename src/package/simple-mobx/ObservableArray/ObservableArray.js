@@ -56,7 +56,9 @@ export class ObservableArray extends Atom {
    *
    * Этот метод выглядит очень сложным https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observablearray.ts#L213
    * там производится много вещей, но смысл примерно тот же:
-   * обернть значения в observable и добавит значения в массив
+   * обернуть значения в observable и добавит значения в массив
+   * за один раз, так как нативные методы массива могут вызывать геттеры и сеттеры несколько раз,
+   * что будет провоцировать лишние вызовы слушателей
    * и затем происходит увеомление слушателей https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observablearray.ts#L261
    */
   spliceWithArray(start, deleteCount, ...items) {

@@ -8,6 +8,7 @@ import { $$observableAdmin } from "../constants";
  *
  * В mobx реализованы все методы https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observablearray.ts#L413
  *
+ * Остальные ме тожы так же реализутся с помощью spliceWithArray
  */
 const arrayMethods = {
   push(...items) {
