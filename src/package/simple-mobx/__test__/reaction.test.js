@@ -1,7 +1,6 @@
 import { Reaction } from "../Reaction";
 import { MockObservable } from "./mock/mockObservable";
 import { globalState } from "../globalstate";
-import { autorun } from "../autorun";
 
 describe("reaction", () => {
   it("should be defined", () => {
@@ -51,16 +50,14 @@ describe("reaction", () => {
     expect(reaction._observers.has(mockObservable)).toBe(false);
   });
 
-  it("trackingDerivation must be available inside the function", function () {
+  it("trackingDerivation must be available inside the track function", function () {
     const reaction = new Reaction(() => {});
 
     const listener = jest.fn(() => {
-      expect(globalState.trackingDerivation).not.toBe(null);
+      expect(globalState.trackingDerivation).toBe(reaction);
     });
 
-    expect(globalState.trackingDerivation).toBe(null);
     reaction.track(listener);
-    expect(globalState.trackingDerivation).toBe(null);
   });
 
   it("reaction must be register to observableValue", function () {
@@ -100,9 +97,9 @@ describe("reaction", () => {
 
     reaction.track(listener);
 
-    mockObservable.set()
+    mockObservable.set();
 
-    expect(listener).toBeCalledTimes(2)
+    expect(listener).toBeCalledTimes(2);
   });
 
   it("reaction must not be executed before dispose", function () {
@@ -112,14 +109,14 @@ describe("reaction", () => {
 
     reaction.track(listener);
 
-    mockObservable.set()
+    mockObservable.set();
 
-    expect(listener).toBeCalledTimes(2)
+    expect(listener).toBeCalledTimes(2);
 
-    reaction.dispose()
+    reaction.dispose();
 
-    mockObservable.set()
+    mockObservable.set();
 
-    expect(listener).toBeCalledTimes(2)
+    expect(listener).toBeCalledTimes(2);
   });
 });
