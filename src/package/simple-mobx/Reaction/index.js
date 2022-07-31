@@ -36,6 +36,7 @@ export class Reaction {
    */
   track(trackedCallback) {
     if (this._disposed) return;
+
     globalState.trackingDerivation = this;
     trackedCallback();
     globalState.trackingDerivation = null;

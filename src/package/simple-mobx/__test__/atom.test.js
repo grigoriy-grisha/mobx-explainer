@@ -2,6 +2,14 @@ import { Atom } from "../Atom";
 import { MockReaction } from "./mock/mockReaction";
 import { globalState } from "../globalstate";
 
+function runReactions(atom) {
+  atom._notify();
+}
+
+function reportObserved(atom) {
+  atom._reportObserved();
+}
+
 describe("atom", () => {
   it("should be defined", () => expect(Atom).toBeDefined());
 
@@ -38,7 +46,7 @@ describe("atom", () => {
     atom.observe(reaction1);
     atom.observe(reaction2);
 
-    atom._notify();
+    runReactions(atom);
 
     expect(reaction1.run).toBeCalled();
     expect(reaction2.run).toBeCalled();
@@ -49,13 +57,13 @@ describe("atom", () => {
     const reaction = new MockReaction();
 
     globalState.trackingDerivation = reaction;
-    atom._reportObserved();
+    reportObserved(atom);
     globalState.trackingDerivation = null;
 
     expect(atom._observers.has(reaction)).toBe(true);
     expect(reaction.addObserver).toBeCalled();
 
-    atom._notify();
+    runReactions(atom);
 
     expect(reaction.run).toBeCalled();
   });

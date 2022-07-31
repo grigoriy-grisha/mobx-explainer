@@ -58,7 +58,6 @@ export class ObservableObject {
     }
 
     this._values[property] = observableValue(value);
-
     target[property] = value;
 
     return true;
