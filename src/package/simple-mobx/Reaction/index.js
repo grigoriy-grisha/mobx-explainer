@@ -37,9 +37,14 @@ export class Reaction {
   track(trackedCallback) {
     if (this._disposed) return;
 
+    /**
+     * Сохранение прошлой реакции нужно для поддержки вложенных реакций
+     */
+    const prevDerivation = globalState.trackingDerivation;
+
     globalState.trackingDerivation = this;
     trackedCallback();
-    globalState.trackingDerivation = null;
+    globalState.trackingDerivation = prevDerivation;
   }
 
   /**
