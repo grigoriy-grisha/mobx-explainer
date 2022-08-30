@@ -1,7 +1,7 @@
 import { $$observable } from "./constants";
 
 export function isObservable(arg) {
-  if (!!arg) return !!arg[$$observable];
+  if (arg) return arg[$$observable];
   return false;
 }
 

@@ -6,7 +6,7 @@ import { isArray, isObservable, isPrimitive, isPureObject } from "../utils";
 import { Atom } from "../Atom";
 
 /**
- * @description оборачивает значения в observable контейнера
+ * @description оборачивает значение в observable контейнеры
  */
 function enhancer(value) {
   if (isObservable(value)) return value;
@@ -18,8 +18,9 @@ function enhancer(value) {
 }
 
 /**
- * @description класс наблюдаемого значения Содержит слушатели и само значение
- * в исходника находится тут https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observablevalue.ts#L62
+ * @description класс самого примитивного наблюдаемого значения
+ * Содержит слушатели и само значение
+ * в исходниках находится тут https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observablevalue.ts#L62
  * У нас не реализованы приведения в примитивные типы
  */
 export class ObservableValue extends Atom {
@@ -44,6 +45,8 @@ export class ObservableValue extends Atom {
    * @description Устанавливает новое значение и уведомляет слушателей
    */
   set(newValue) {
+    if (newValue === this._value) return;
+
     this._value = enhancer(newValue);
 
     this._notify();
