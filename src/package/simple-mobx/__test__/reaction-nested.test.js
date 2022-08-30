@@ -1,6 +1,6 @@
 import { Reaction } from "../Reaction";
 import { globalState } from "../globalstate";
-import { makeObservable } from "../makeObservable";
+import { observableValue } from "../ObservableValue";
 
 describe("nested Reactions", () => {
   it("global state should has current reaction", () => {
@@ -25,8 +25,8 @@ describe("nested Reactions", () => {
     const reaction1 = new Reaction(autorunFn1);
     const reaction2 = new Reaction(autorunFn2);
 
-    const observableValue1 = makeObservable(1);
-    const observableValue2 = makeObservable(1);
+    const observableValue1 = observableValue(1);
+    const observableValue2 = observableValue(1);
 
     reaction1.track(() => {
       reaction2.track(() => observableValue2.get());
