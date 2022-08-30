@@ -43,4 +43,15 @@ describe("observableArray", () => {
 
     expectListenerIsNoWastUpdated();
   });
+
+  it("set new length", function () {
+    const observable = observableArray([1, 2, 3, 4, 5]);
+    const listener = jest.fn(() => observable[0]);
+
+    autorun(listener);
+
+    observable.length = 10;
+
+    expectListenerWasUpdated(listener);
+  });
 });

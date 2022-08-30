@@ -3,8 +3,8 @@ import { $$observable } from "../constants";
 import { isFunction, isObservable } from "../utils";
 
 /**
- * @description observable значение, предаставляющее наблюдаемый объект
- * в mobx содержиться тут https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observableobject.ts#L90
+ * @description observable-контейнер, предаставляющее наблюдаемый объект
+ * в mobx содержится тут https://github.com/mobxjs/mobx/blob/63698d0681988194bac5fc01851882b417b35f18/packages/mobx/src/types/observableobject.ts#L90
  * у нас много метдов не реализовано, такие как has, delete,ownKeys и др
  */
 export class ObservableObject {
@@ -37,11 +37,20 @@ export class ObservableObject {
   }
 
   /**
-   * @description  Метод-делегат, который устанавливает
+   * @description  Метод, который устанавливает
    * значения для ObservableValue и для внешнего объекта
+   *
    */
   set(target, property, value) {
     if (this._hasProperty(property)) {
+      /**
+       *  Если функция, то просто устаналиваем значение
+       */
+      if (isFunction(target[property])) {
+        target[property] = value;
+        return true;
+      }
+
       if (isObservable(this._values[property])) {
         this._values[property].set(value);
         return true;
@@ -52,11 +61,9 @@ export class ObservableObject {
       return true;
     }
 
-    if (isFunction(target[property])) {
-      target[property] = value;
-      return true;
-    }
-
+    /**
+     *  Если устанавливаем новое поле, то оборачиваем его в observableValue
+     */
     this._values[property] = observableValue(value);
     target[property] = value;
 

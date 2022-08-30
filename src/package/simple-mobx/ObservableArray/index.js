@@ -6,6 +6,9 @@ function delegateProxy(target) {
   return new Proxy(target, new ArrayHandlers());
 }
 
+/**
+ * Функция для оборачивания массива в Proxy
+ */
 export function observableArray(target) {
   if (target.hasOwnProperty($$observableAdmin)) return target;
 
